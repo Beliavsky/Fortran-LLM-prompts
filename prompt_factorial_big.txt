@@ -1,0 +1,4 @@
+Write a Fortran program to print the factorials from 1 through 40,
+using the largest integer type available. Check that the results
+are not overflowing, and if an overflow occurs, print the largest
+factorial you were able to compute.

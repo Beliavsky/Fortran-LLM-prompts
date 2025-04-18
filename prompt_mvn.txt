@@ -1,0 +1,9 @@
+Write a Fortran subroutine in a module that generates multivariate
+normal data where all the off-diagonal correlations are rho, for
+example rho = 0.7. Generate n=10^6 observations in k=3 dimensions.
+
+Declare real variables as real(kind=dp) with
+
+integer, parameter :: dp = kind(1.0d0)
+
+Print the empirical correlations of the simulated data.

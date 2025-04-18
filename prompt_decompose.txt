@@ -1,0 +1,4 @@
+Write a Fortran program that finds all the way an integer n = 17 can
+be decomposed as the sum of primes, in each case with the primes in
+the sum listed in ascending order. Print the number of decompositions
+found.

@@ -1,0 +1,17 @@
+Write a Fortran subroutine in a module to solve a system of linear 
+equations using the conjugate gradient solver and validate it. The 
+equations are M * x = b, where M is
+
+ 4 -1  0
+-1  4 -1
+ 0 -1  4
+
+and b is [1 2 3]. The L2 norm of residuals should be <= 1.0e-6.
+
+Declare real variables as real(kind=dp) with the module constant dp 
+defined as
+
+integer, parameter :: dp = kind(1.0d0)
+
+Use the Fortran intrinsic matmul function. Print the solution x and
+verify that it is correct by printing M * x.

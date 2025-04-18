@@ -1,0 +1,5 @@
+Write a Fortran program to answer the following question.
+Suppose you’re listening to radio station ZIPF, a station that
+randomly plays the top k = 100 songs according to Zipf’s law: the nth most
+popular song is played with probability proportional to 1/n. How long
+would it take on average to hear all 100 songs at least once?

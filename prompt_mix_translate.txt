@@ -1,0 +1,80 @@
+Translate the Python code below to Fortran. Declare real variables as
+real(kind=dp) with
+
+integer, parameter :: dp = kind(1.0d0)
+
+Declare procedures as pure or elemental when feasible.
+
+# beginning of Python code
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+from scipy.special import logsumexp
+
+def fit_mixture_of_normals(data, k, max_iter=100, tol=1e-6):
+    n = len(data)
+    np.random.seed(0)
+    means = np.random.choice(data, k)
+    covariances = np.random.rand(k)
+    weights = np.ones(k) / k
+    r = np.zeros((n, k))
+    
+    for _ in range(max_iter):
+        # Expectation step
+        for i in range(k):
+            r[:, i] = weights[i] * norm.pdf(data, means[i], np.sqrt(covariances[i]))
+        r /= r.sum(axis=1, keepdims=True) 
+        
+        # Maximization step
+        s = r.sum(axis=0)
+        means = (r * data.reshape(-1, 1)).sum(axis=0) / s
+        covariances = ((r * (data.reshape(-1, 1) - means)**2).sum(axis=0) / s).clip(min=1e-6)
+        weights = s / n
+        
+        if (r.sum(axis=1) > 1 + tol).any() or (r.sum(axis=1) < 1 - tol).any():
+            raise ValueError("Row normalization failed")
+    
+    return weights, means, covariances
+
+def display_parameters(true_params, estimated_params):
+    true_weights, true_means, true_covariances = true_params
+    est_weights, est_means, est_covariances = estimated_params
+    
+    true_df = pd.DataFrame({
+        'Component': range(len(true_weights)),
+        'True Weight': true_weights,
+        'True Mean': true_means,
+        'True Covariance': true_covariances
+    })
+    
+    est_df = pd.DataFrame({
+        'Estimated Weight': est_weights,
+        'Estimated Mean': est_means,
+        'Estimated Covariance': est_covariances
+    })
+    
+    result_df = pd.concat([true_df, est_df], axis=1)
+    print(result_df.to_string(index=False))
+
+def main():
+    true_weights = np.array([0.4, 0.6])
+    true_means = np.array([0, 5])
+    true_covariances = np.array([1, 1])
+    n_samples = 1000
+    
+    data = np.concatenate([
+        np.random.normal(true_means[0], np.sqrt(true_covariances[0]), int(true_weights[0] * n_samples)),
+        np.random.normal(true_means[1], np.sqrt(true_covariances[1]), int(true_weights[1] * n_samples))
+    ])
+    
+    estimated_weights, estimated_means, estimated_covariances = fit_mixture_of_normals(data, len(true_weights))
+    
+    true_params = (true_weights, true_means, true_covariances)
+    estimated_params = (estimated_weights, estimated_means, estimated_covariances)
+    
+    display_parameters(true_params, estimated_params)
+
+if __name__ == "__main__":
+    main()
+# end of Python code
+

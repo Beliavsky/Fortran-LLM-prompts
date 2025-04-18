@@ -1,0 +1,19 @@
+Write a Fortran subroutine that simulates from a Markov chain given the
+transition matrix. Simulate 10^6 observations and compare the 
+empirical distribution of states with the equilibrium distribution.
+Use a transition matrix
+
+0.7 0.2 0.1
+0.1 0.5 0.4
+0.1 0.1 0.8
+
+but write the program so that it handles an arbitrary number of states.
+
+Declare real variables as real(kind=dp) with dp a module constant, and
+put procedures in a module. If you need the constant pi, define it,
+since it is not built in to Fortran. If you need to sort data, write a
+subroutine to do so, since it is not built in to Fortran. Note that in
+Fortran, random_number is a subroutine and not a function. Note that
+all the elements of a character array constructor must have the same
+LEN. If you create a procedure that uses recursion, declare it as `recursive`.
+The maximum line length is 132 characters.

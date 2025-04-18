@@ -1,0 +1,5 @@
+Write a Fortran program to count the number of ways integers from 1 through n
+can be permuted such that there are no two consecutive integers in the permutation.
+For example for n = 3, there are 3 ways, [1 3 2], [2 1 3], [3 2 1]. Give results 
+for n = 1 through 6.
+

@@ -1,0 +1,9 @@
+Write a Fortran program to compute Euler's number using a Taylor
+series with the number of terms nterms equal to 1000. Set a kind
+constant
+
+integer, parameter :: dp = kind(1.0d0)
+
+and declare real variables as
+
+real(kind=dp)

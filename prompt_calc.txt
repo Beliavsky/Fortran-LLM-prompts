@@ -1,0 +1,12 @@
+Write an expression evaluator in a Fortran module.
+Store all numbers as real(kind=dp) with
+
+integer, parameter :: dp = kind(1.0d0) 
+
+a module constant
+
+Test that a line of text passed to the evaluator
+
+10 + (5 * (1 + (2*3)))
+
+gives 45

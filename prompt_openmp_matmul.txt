@@ -1,0 +1,1 @@
+Write a Fortran code that does matrix multiplication using OpenMP target offload.
